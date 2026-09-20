@@ -1,7 +1,7 @@
 ---
 title: "Why Canya stays offline"
 description: "The one network call a local-first diagram app is allowed to make, and why everything else is a file on your disk."
-date: 2026-09-20
+pubDate: "Sep 20 2026"
 tags: ["canya", "local-first", "tauri"]
 ---
 

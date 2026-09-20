@@ -1,20 +1,26 @@
 # burkaya.com
 
 Personal site of Burak Kaya: intro, CV, projects (including [Canya](https://canya.burkaya.com)) and a blog.
-Built with [Astro](https://astro.build) as a fully static site and deployed on Cloudflare Pages.
+Built with [Astro](https://astro.build) on the [Astrofy](https://github.com/manuelernestog/astrofy) template
+(Tailwind CSS + daisyUI) as a fully static site, deployed on Cloudflare Pages.
 
 ## Structure
 
 ```text
-src/data/site.ts        Name, links, Canya metadata
-src/data/cv.ts          CV content rendered on /about and /projects
-src/content/blog/       Blog posts (Markdown with frontmatter)
-src/pages/              Routes: /, /about, /projects, /blog, /blog/<id>, /rss.xml, 404
-src/components/         Header, footer, post list, home-page system sketch
-src/layouts/Base.astro  HTML shell, meta tags, fonts, theme bootstrap
-src/styles/global.css   Design tokens (light/dark) and base typography
-public/                 favicon, robots.txt, Cloudflare `_headers`
+src/config.ts               Site title/description, slug and view-transition switches
+src/data/site.ts            Name, links, Canya metadata
+src/data/cv.ts              CV content rendered on /cv and /projects
+src/content/blog/           Blog posts (Markdown/MDX with frontmatter)
+src/pages/                  Routes: /, /projects, /cv, /blog, /blog/<slug>, /blog/tag/<tag>, /rss.xml, 404
+src/components/             Sidebar, header, footer, cards, CV timeline
+src/layouts/                BaseLayout (drawer + sidebar), PostLayout
+tailwind.config.cjs         Tailwind + daisyUI (theme set in BaseLayout's `data-theme`)
+public/                     profile.webp (avatar), canya.webp, favicon, robots.txt, `_headers`
 ```
+
+Replace `public/profile.webp` with a real photo (square, ~300px+); the current one is a placeholder.
+The colour theme is a daisyUI theme name on `<html data-theme="lofi">` in `src/layouts/BaseLayout.astro`;
+any theme from https://daisyui.com/docs/themes/ works.
 
 ## Writing a post
 
@@ -24,9 +30,10 @@ Create `src/content/blog/<slug>.md`; the file name becomes the URL (`/blog/<slug
 ---
 title: "Post title"
 description: "One sentence shown in lists, RSS and meta tags."
-date: 2026-09-20
-tags: ["postgres", "spring-boot"]   # optional
-draft: true                          # optional; hides the post from builds
+pubDate: "Sep 20 2026"
+heroImage: "/some-image.webp"        # optional
+badge: "NEW"                         # optional
+tags: ["postgres", "spring-boot"]    # optional; each gets a /blog/tag/<tag> page
 ---
 
 Body in Markdown. Code blocks are highlighted at build time.
@@ -39,7 +46,7 @@ Requires [Bun](https://bun.sh) 1.4 or newer.
 ```bash
 bun install
 bun run dev        # http://localhost:4321
-bun run build      # type-check (astro check) + static build into dist/
+bun run build      # static build into dist/
 bun run preview    # serve dist/ locally
 ```
 

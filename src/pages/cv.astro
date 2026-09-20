@@ -1,0 +1,103 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import TimeLineElement from "../components/cv/TimeLine.astro";
+import { summary, experience, projects, skills, education, certifications, languages } from "../data/cv";
+---
+
+<BaseLayout title="CV" sideBarActiveItemID="cv">
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Profile</div>
+  </div>
+
+  <div class="mb-10 text-justify">{summary}</div>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Experience</div>
+  </div>
+
+  <div class="time-line-container mb-10">
+    {
+      experience.map((r) => (
+        <TimeLineElement
+          title={`${r.title} at ${r.company}`}
+          subtitle={`${r.start} – ${r.end} · ${r.location} · ${r.subtitle}`}
+        >
+          <ul class="list-disc ml-5 grid gap-1">
+            {r.bullets.map((b) => (
+              <li>{b}</li>
+            ))}
+          </ul>
+        </TimeLineElement>
+      ))
+    }
+  </div>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Projects</div>
+  </div>
+
+  <div class="time-line-container mb-10">
+    {
+      projects.map((p) => (
+        <TimeLineElement title={p.name} subtitle={`${p.period} · ${p.context} · ${p.stack.join(", ")}`}>
+          <ul class="list-disc ml-5 grid gap-1">
+            {p.bullets.map((b) => (
+              <li>{b}</li>
+            ))}
+          </ul>
+        </TimeLineElement>
+      ))
+    }
+  </div>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Education</div>
+  </div>
+
+  <div class="time-line-container grid gap-4 mb-10">
+    {
+      education.map((e) => (
+        <TimeLineElement title={`${e.degree} — ${e.school}`} subtitle={e.period}>
+          {e.note}
+        </TimeLineElement>
+      ))
+    }
+  </div>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Certifications</div>
+  </div>
+
+  <ul class="list-disc mx-6 mb-10 grid gap-2">
+    {
+      certifications.map((c) => (
+        <li>
+          {c.name} — {c.issuer}, {c.date}
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Skills</div>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-x-8 gap-y-4 mb-10">
+    {
+      skills.map((s) => (
+        <div>
+          <div class="font-semibold mb-1">{s.group}</div>
+          <div class="opacity-80">{s.items.join(", ")}</div>
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Languages</div>
+  </div>
+
+  <ul class="list-disc mx-6 mb-10 grid gap-2">
+    {languages.map((l) => <li>{l}</li>)}
+  </ul>
+</BaseLayout>

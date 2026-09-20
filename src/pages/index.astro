@@ -1,59 +1,77 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HorizontalCard from "../components/HorizontalCard.astro";
 import { getCollection } from "astro:content";
-import Base from "../layouts/Base.astro";
-import PostList from "../components/PostList.astro";
-import SystemSketch from "../components/SystemSketch.astro";
+import createSlug from "../lib/createSlug";
 import { site, canya } from "../data/site";
 
-const posts = (await getCollection("blog", ({ data }) => !data.draft))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 3);
+const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const last_posts = posts.slice(0, 3);
 ---
 
-<Base>
-  <h1>I build backend systems that stay boring in production.</h1>
-  <p class="lede">
-    Backend engineer in Istanbul, working in Java/Spring Boot and Python/FastAPI. I own services end to end — API design,
-    PostgreSQL modelling, event-driven pipelines, and the operations that keep them up. Lately that includes putting
-    RAG and agentic workflows into real products.
-  </p>
-  <ul class="links">
-    <li><a href="/about">Read my CV</a></li>
-    <li><a href={site.github}>GitHub</a></li>
-    <li><a href={site.linkedin}>LinkedIn</a></li>
-    <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
-  </ul>
+<BaseLayout sideBarActiveItemID="home">
+  <div class="pb-12 mt-5">
+    <div class="text-xl py-1">Hey there 👋</div>
+    <div class="text-5xl font-bold">I'm {site.name}</div>
+    <div class="text-3xl py-3 font-bold">{site.title}</div>
+    <div class="py-2">
+      <text class="text-lg">
+        I build secure, scalable SaaS backends in <b>Java/Spring Boot</b> and <b>Python/FastAPI</b> — from API design
+        and PostgreSQL modelling to event-driven pipelines and production operations. Lately that includes putting RAG
+        and agentic workflows into real products. On the side I make <b>Canya</b>, a local-first desktop app for
+        technical diagrams.
+      </text>
+    </div>
+    <div class="mt-8">
+      <a class="btn" href={`mailto:${site.email}`} target="_blank"> Let's connect!</a>
+      <a href="/cv" class="btn btn-outline ml-5"> Read my CV </a>
+    </div>
+  </div>
 
-  <SystemSketch />
+  <div>
+    <div class="text-3xl w-full font-bold mb-2">My projects {"</>"}</div>
+  </div>
 
-  <h2>Now</h2>
-  <p>
-    Freelancing for VistaLine on a B2B quotation platform: a FastAPI backend with a rule-based pricing engine across 22
-    product families, dealer self-service that turned hours of manual quoting into seconds, and three PDF outputs from
-    one quote model. Before that, two years at Bear Analytica shipping a multi-tenant phishing-simulation SaaS on Spring
-    Boot.
-  </p>
+  <HorizontalCard
+    title={canya.name}
+    img="/canya.webp"
+    desc={`${canya.tagline} Runs on ${canya.platforms.join(", ")}; every project is a plain file on your disk and the app makes no network requests.`}
+    url={canya.url}
+    badge="APP"
+  />
+  <div class="divider my-0"></div>
+  <HorizontalCard
+    title="VistaLine — B2B quotation platform"
+    desc="FastAPI backend with a rule-based pricing engine across 22 product families, dealer self-service quoting, RBAC, and three PDF outputs generated from one quote model."
+    url="/projects"
+    target="_self"
+  />
+  <div class="divider my-0"></div>
+  <HorizontalCard
+    title="Multi-tenant phishing-simulation SaaS"
+    desc="Spring Boot platform serving 20+ tenants and ~50K requests/day; tenant isolation, PostgreSQL tuning, RAG pipelines and agentic workflows."
+    url="/projects"
+    target="_self"
+  />
 
-  <h2>Canya</h2>
-  <section class="canya">
-    <p>
-      <strong>{canya.name}</strong> is {canya.tagline.charAt(0).toLowerCase() + canya.tagline.slice(1)} It runs on{" "}
-      {canya.platforms.join(", ")}, keeps every project as a plain file on your disk, and makes no network requests —
-      no account, no cloud, no telemetry.
-    </p>
-    <p>
-      <a class="cta" href={canya.url}>Download Canya</a>
-      <a class="side" href="/projects#canya">More about the project</a>
-    </p>
-  </section>
+  <div>
+    <div class="text-3xl w-full font-bold mb-5 mt-10">Latest from blog</div>
+  </div>
 
-  <h2>Writing</h2>
-  <PostList posts={posts} />
-  <p style="margin-top: 1rem"><a href="/blog">All posts</a></p>
-</Base>
-
-<style>
-  .canya .side {
-    margin-left: 1rem;
+  {
+    last_posts.map((post) => (
+      <>
+        <HorizontalCard
+          title={post.data.title}
+          img={post.data.heroImage}
+          desc={post.data.description}
+          url={"/blog/" + createSlug(post.data.title, post.slug)}
+          target="_self"
+          badge={post.data.badge}
+        />
+        <div class="divider my-0" />
+      </>
+    ))
   }
-</style>
+</BaseLayout>

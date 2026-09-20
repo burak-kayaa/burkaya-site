@@ -1,90 +1,17 @@
----
-import { site } from "../data/site";
-
-const nav = [
-  { href: "/about", label: "About" },
-  { href: "/projects", label: "Projects" },
-  { href: "/blog", label: "Blog" },
-];
-const path = Astro.url.pathname;
-const isActive = (href: string) => path === href || path.startsWith(`${href}/`);
----
-
-<header class="wrap">
-  <a class="brand" href="/">{site.name}</a>
-  <nav aria-label="Primary">
-    {nav.map((n) => (
-      <a href={n.href} aria-current={isActive(n.href) ? "page" : undefined}>{n.label}</a>
-    ))}
-    <button id="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
-      <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
-        <circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5" />
-        <path d="M8 1.5a6.5 6.5 0 0 1 0 13z" fill="currentColor" />
-      </svg>
-    </button>
-  </nav>
-</header>
-
-<style>
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding-block: 1.25rem;
-    border-bottom: 1px solid var(--rule);
-  }
-  .brand {
-    font-weight: 600;
-    color: var(--ink);
-    text-decoration: none;
-    letter-spacing: -0.01em;
-  }
-  nav {
-    display: flex;
-    align-items: center;
-    gap: 1.1rem;
-  }
-  nav a {
-    color: var(--muted);
-    text-decoration: none;
-  }
-  nav a:hover,
-  nav a[aria-current="page"] {
-    color: var(--ink);
-  }
-  nav a[aria-current="page"] {
-    text-decoration: underline;
-    text-underline-offset: 0.35em;
-    text-decoration-color: var(--accent);
-    text-decoration-thickness: 2px;
-  }
-  button {
-    display: inline-flex;
-    align-items: center;
-    background: none;
-    border: 1px solid var(--rule);
-    color: var(--muted);
-    border-radius: 999px;
-    padding: 0.3rem;
-    cursor: pointer;
-  }
-  button:hover {
-    color: var(--ink);
-    border-color: var(--muted);
-  }
-</style>
-
-<script>
-  const root = document.documentElement;
-  const btn = document.getElementById("theme-toggle");
-  btn?.addEventListener("click", () => {
-    const current =
-      root.getAttribute("data-theme") ?? (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-    const next = current === "dark" ? "light" : "dark";
-    root.setAttribute("data-theme", next);
-    try {
-      localStorage.setItem("theme", next);
-    } catch {}
-  });
-</script>
+<div
+  class="sticky lg:hidden top-0 z-30 flex h-16 w-full justify-center bg-opacity-90 backdrop-blur transition-all duration-100 bg-base-100 text-base-content shadow-sm"
+>
+  <div class="navbar">
+    <div class="navbar-start">
+      <label for="my-drawer" class="btn btn-square btn-ghost">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"
+          ><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </label>
+    </div>
+    <div class="navbar-center">
+      <a class="btn btn-ghost normal-case text-xl" href="/">Burak Kaya</a>
+    </div>
+    <div class="navbar-end"></div>
+  </div>
+</div>

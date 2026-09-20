@@ -1,27 +1,14 @@
 ---
 import { site } from "../data/site";
-const year = new Date().getFullYear();
+const today = new Date();
 ---
 
-<footer class="wrap">
-  <ul class="links">
-    <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
-    <li><a href={site.github} rel="me">GitHub</a></li>
-    <li><a href={site.linkedin} rel="me">LinkedIn</a></li>
-    <li><a href="/rss.xml">RSS</a></li>
-  </ul>
-  <p class="meta">© {year} {site.name}. {site.location}.</p>
+<footer class="footer footer-center block mb-5 pt-10">
+  <div class="pb-2">
+    &copy; {today.getFullYear()} {site.name}
+  </div>
+  <div class="inline opacity-75">
+    Built with <a href="https://astro.build" target="_blank" class="font-bold">Astro</a> and the
+    <a href="https://github.com/manuelernestog/astrofy" target="_blank" class="font-bold">Astrofy</a> template
+  </div>
 </footer>
-
-<style>
-  footer {
-    padding-block: 1.75rem 2.5rem;
-    border-top: 1px solid var(--rule);
-  }
-  footer .links {
-    margin-top: 0;
-  }
-  footer p {
-    margin: 0.75rem 0 0;
-  }
-</style>

@@ -1,14 +1,10 @@
-// @ts-check
 import { defineConfig } from "astro/config";
+import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
+import tailwind from "@astrojs/tailwind";
 
+// https://astro.build/config
 export default defineConfig({
   site: "https://burkaya.com",
-  trailingSlash: "never",
-  integrations: [sitemap()],
-  markdown: {
-    shikiConfig: {
-      themes: { light: "github-light", dark: "github-dark" },
-    },
-  },
+  integrations: [mdx(), sitemap(), tailwind()],
 });
