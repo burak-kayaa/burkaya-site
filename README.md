@@ -1,43 +1,47 @@
 # burkaya.com
 
 Personal site of Burak Kaya: intro, CV, projects (including [Canya](https://canya.burkaya.com)) and a blog.
-Built with [Astro](https://astro.build) on the [Astrofy](https://github.com/manuelernestog/astrofy) template
-(Tailwind CSS + daisyUI) as a fully static site, deployed on Cloudflare Pages.
+Built with [Astro](https://astro.build) on the [Astro Sphere](https://github.com/markhorn-dev/astro-sphere) template
+(Tailwind CSS + SolidJS for search) as a fully static site, deployed on Cloudflare Pages.
 
 ## Structure
 
 ```text
-src/config.ts               Site title/description, slug and view-transition switches
-src/data/site.ts            Name, links, Canya metadata
-src/data/cv.ts              CV content rendered on /cv and /projects
-src/content/blog/           Blog posts (Markdown/MDX with frontmatter)
-src/pages/                  Routes: /, /projects, /cv, /blog, /blog/<slug>, /blog/tag/<tag>, /rss.xml, 404
-src/components/             Sidebar, header, footer, cards, CV timeline
-src/layouts/                BaseLayout (drawer + sidebar), PostLayout
-tailwind.config.cjs         Tailwind + daisyUI (theme set in BaseLayout's `data-theme`)
-public/                     profile.webp (avatar), canya.webp, favicon, robots.txt, `_headers`
+src/consts.ts               Site title/description, nav links, social links, page headings
+src/data/cv.ts              Profile summary, skills, education, certifications (rendered on /work)
+src/content/work/           One Markdown file per job → the Experience list on /work
+src/content/projects/       One folder per project (index.md + images) → /projects and /projects/<slug>
+src/content/blog/           One folder per post (index.md or index.mdx) → /blog and /blog/<slug>
+src/pages/                  Routes: /, /work, /projects, /blog, /search, /rss.xml, /robots.txt
+src/components/             Header, drawer, footer, cards, search (SolidJS), star/meteor backgrounds
+src/layouts/                PageLayout, article layouts
+public/                     brand.svg (header mark), favicon, ui/social sprites, fonts, `_headers`
 ```
 
-Replace `public/profile.webp` with a real photo (square, ~300px+); the current one is a placeholder.
-The colour theme is a daisyUI theme name on `<html data-theme="lofi">` in `src/layouts/BaseLayout.astro`;
-any theme from https://daisyui.com/docs/themes/ works.
+Light/dark follows the system and can be toggled in the header. The hero animation on the home page is the
+template's; `public/js/bg.js` draws the particles/stars.
 
 ## Writing a post
 
-Create `src/content/blog/<slug>.md`; the file name becomes the URL (`/blog/<slug>`).
+Create `src/content/blog/<slug>/index.md`; the folder name becomes the URL (`/blog/<slug>`). Images can sit next to
+`index.md` and be referenced relatively.
 
 ```md
 ---
 title: "Post title"
-description: "One sentence shown in lists, RSS and meta tags."
-pubDate: "Sep 20 2026"
-heroImage: "/some-image.webp"        # optional
-badge: "NEW"                         # optional
-tags: ["postgres", "spring-boot"]    # optional; each gets a /blog/tag/<tag> page
+summary: "One sentence shown in lists, RSS, search and meta tags."
+date: "Sep 20 2026"
+draft: false
+tags:
+- postgres
+- spring-boot
 ---
 
 Body in Markdown. Code blocks are highlighted at build time.
 ```
+
+Projects use the same shape under `src/content/projects/<slug>/index.md`, plus optional `demoUrl` and `repoUrl`.
+Jobs under `src/content/work/<company>.md` take `company`, `role`, `dateStart`, `dateEnd` (a date or `"Present"`).
 
 ## Development
 
@@ -46,7 +50,7 @@ Requires [Bun](https://bun.sh) 1.4 or newer.
 ```bash
 bun install
 bun run dev        # http://localhost:4321
-bun run build      # static build into dist/
+bun run build      # astro check + static build into dist/
 bun run preview    # serve dist/ locally
 ```
 

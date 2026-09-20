@@ -1,23 +1,38 @@
-import { z, defineCollection } from "astro:content";
-const blogSchema = z.object({
-  title: z.string(),
-  description: z.string(),
-  pubDate: z.coerce.date(),
-  updatedDate: z.string().optional(),
-  heroImage: z.string().optional(),
-  badge: z.string().optional(),
-  tags: z
-    .array(z.string())
-    .refine((items) => new Set(items).size === items.length, {
-      message: "tags must be unique",
-    })
-    .optional(),
-});
+import { defineCollection, z } from "astro:content"
 
-export type BlogSchema = z.infer<typeof blogSchema>;
+const work = defineCollection({
+  type: "content",
+  schema: z.object({
+    company: z.string(),
+    role: z.string(),
+    dateStart: z.coerce.date(),
+    dateEnd: z.union([z.coerce.date(), z.string()]),
+  }),
+})
 
-const blogCollection = defineCollection({ schema: blogSchema });
+const blog = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    summary: z.string(),
+    date: z.coerce.date(),
+    tags: z.array(z.string()),
+    draft: z.boolean().optional(),
+  }),
+})
 
-export const collections = {
-  blog: blogCollection,
-};
+const projects = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    summary: z.string(),
+    date: z.coerce.date(),
+    tags: z.array(z.string()),
+    draft: z.boolean().optional(),
+    demoUrl: z.string().optional(),
+    repoUrl: z.string().optional(),
+  }),
+})
+
+
+export const collections = { work, blog, projects }

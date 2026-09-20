@@ -1,0 +1,111 @@
+---
+import { getCollection } from "astro:content"
+import PageLayout from "@layouts/PageLayout.astro"
+import TopLayout from "@layouts/TopLayout.astro"
+import BottomLayout from "@layouts/BottomLayout.astro"
+import { WORK } from "@consts"
+import { summary, skills, education, certifications, languages } from "../../data/cv"
+
+const collection = await getCollection("work")
+
+collection.sort((a, b) => new Date(b.data.dateStart).getTime() - new Date(a.data.dateStart).getTime())
+
+const work = await Promise.all(
+  collection.map(async (item) => {
+    const { Content } = await item.render()
+    return { ...item, Content }
+  })
+)
+
+function formatWorkDate(input: Date | string) {
+  if (typeof input === "string") return input
+
+  const month = input.toLocaleDateString("en-US", {
+    month: "short",
+  })
+
+  const year = new Date(input).getFullYear()
+  return `${month} ${year}`
+}
+---
+
+<PageLayout title={WORK.TITLE} description={WORK.DESCRIPTION}>
+  <TopLayout>
+    <div class="animate">
+      <h1 class="text-3xl font-semibold text-black dark:text-white mt-2">
+        {WORK.TITLE}
+      </h1>
+      <div class="mt-1">
+        {WORK.DESCRIPTION}
+      </div>
+    </div>
+  </TopLayout>
+  <BottomLayout>
+    <section class="animate mb-12">
+      <h2 class="font-semibold text-black dark:text-white mb-3">Profile</h2>
+      <p>{summary}</p>
+    </section>
+
+    <h2 class="animate font-semibold text-black dark:text-white mb-4">Experience</h2>
+    <ul>
+      { 
+        work.map((entry) => (
+          <li class="animate border-b border-black/10 dark:border-white/25 mt-4 py-8 first-of-type:mt-0 first-of-type:pt-0 last-of-type:border-none">
+            <div class="text-sm uppercase mb-4">
+              {formatWorkDate(entry.data.dateStart)} - {formatWorkDate(entry.data.dateEnd)}
+            </div>
+            <div class="text-black dark:text-white font-semibold">
+              {entry.data.company}
+            </div>
+            <div class="text-sm font-semibold">
+              {entry.data.role}
+            </div>
+            <article class="prose dark:prose-invert">
+              <entry.Content />
+            </article>
+          </li>
+        ))
+      }
+    </ul>
+
+    <section class="animate mt-16">
+      <h2 class="font-semibold text-black dark:text-white mb-4">Education</h2>
+      <ul>
+        {education.map((e) => (
+          <li class="border-b border-black/10 dark:border-white/25 py-6 first-of-type:pt-0 last-of-type:border-none">
+            <div class="text-sm uppercase mb-2">{e.period}</div>
+            <div class="text-black dark:text-white font-semibold">{e.school}</div>
+            <div class="text-sm font-semibold">{e.degree}</div>
+            <p class="mt-2">{e.note}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="animate mt-16">
+      <h2 class="font-semibold text-black dark:text-white mb-4">Skills</h2>
+      <dl class="grid grid-cols-1 sm:grid-cols-[10rem_1fr] gap-x-6 gap-y-3">
+        {skills.map((s) => (
+          <>
+            <dt class="text-black dark:text-white font-semibold">{s.group}</dt>
+            <dd>{s.items.join(", ")}</dd>
+          </>
+        ))}
+      </dl>
+    </section>
+
+    <section class="animate mt-16">
+      <h2 class="font-semibold text-black dark:text-white mb-4">Certifications</h2>
+      <ul class="list-disc pl-5 space-y-1">
+        {certifications.map((c) => (
+          <li>{c.name} — {c.issuer}, {c.date}</li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="animate mt-16">
+      <h2 class="font-semibold text-black dark:text-white mb-4">Languages</h2>
+      <p>{languages.join(" · ")}</p>
+    </section>
+  </BottomLayout>
+</PageLayout>
