@@ -52,7 +52,10 @@ The site is a static build; no adapter or Worker is needed.
    - Framework preset: **Astro**
    - Build command: `bun run build`
    - Build output directory: `dist`
-   - Bun is detected automatically from `bun.lock`; `.node-version` pins Node 22 for the Astro toolchain.
+   - Bun is detected automatically from `bun.lock`. The `packageManager` field in `package.json` pins Bun 1.4.2
+     (the default image ships an older Bun that cannot read this lockfile version); if the build still picks
+     an older Bun, add the environment variable `BUN_VERSION=1.4.2` under Settings → Variables and secrets.
+   - `.node-version` pins Node 22 for the Astro toolchain.
 3. Custom domain: add `burkaya.com` (and `www.burkaya.com` if wanted) under the project's Custom domains tab.
    The DNS zone is already on Cloudflare, so the CNAME records are created for you.
 
