@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.astro/
+.wrangler/
+
+.DS_Store
+Thumbs.db
+
+.idea/
+.vscode/
+
+*.log
+
+.env
+.env.*
+!.env.example

@@ -1,0 +1,59 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+import PostList from "../components/PostList.astro";
+import SystemSketch from "../components/SystemSketch.astro";
+import { site, canya } from "../data/site";
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+---
+
+<Base>
+  <h1>I build backend systems that stay boring in production.</h1>
+  <p class="lede">
+    Backend engineer in Istanbul, working in Java/Spring Boot and Python/FastAPI. I own services end to end — API design,
+    PostgreSQL modelling, event-driven pipelines, and the operations that keep them up. Lately that includes putting
+    RAG and agentic workflows into real products.
+  </p>
+  <ul class="links">
+    <li><a href="/about">Read my CV</a></li>
+    <li><a href={site.github}>GitHub</a></li>
+    <li><a href={site.linkedin}>LinkedIn</a></li>
+    <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+  </ul>
+
+  <SystemSketch />
+
+  <h2>Now</h2>
+  <p>
+    Freelancing for VistaLine on a B2B quotation platform: a FastAPI backend with a rule-based pricing engine across 22
+    product families, dealer self-service that turned hours of manual quoting into seconds, and three PDF outputs from
+    one quote model. Before that, two years at Bear Analytica shipping a multi-tenant phishing-simulation SaaS on Spring
+    Boot.
+  </p>
+
+  <h2>Canya</h2>
+  <section class="canya">
+    <p>
+      <strong>{canya.name}</strong> is {canya.tagline.charAt(0).toLowerCase() + canya.tagline.slice(1)} It runs on{" "}
+      {canya.platforms.join(", ")}, keeps every project as a plain file on your disk, and makes no network requests —
+      no account, no cloud, no telemetry.
+    </p>
+    <p>
+      <a class="cta" href={canya.url}>Download Canya</a>
+      <a class="side" href="/projects#canya">More about the project</a>
+    </p>
+  </section>
+
+  <h2>Writing</h2>
+  <PostList posts={posts} />
+  <p style="margin-top: 1rem"><a href="/blog">All posts</a></p>
+</Base>
+
+<style>
+  .canya .side {
+    margin-left: 1rem;
+  }
+</style>

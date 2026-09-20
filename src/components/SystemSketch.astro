@@ -1,0 +1,72 @@
+---
+// A small architecture sketch of the kind of system described on the About page:
+// clients → API → PostgreSQL, with an event bus feeding workers and an LLM step.
+// Drawn once, in the accent colour, as the home page's single visual element.
+---
+
+<figure class="sketch" aria-labelledby="sketch-caption">
+  <svg viewBox="0 0 640 200" role="img" aria-describedby="sketch-caption">
+    <defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0 0L10 5L0 10z" fill="currentColor" />
+      </marker>
+    </defs>
+
+    <g class="edges" fill="none" stroke="currentColor" stroke-width="1.5" marker-end="url(#arrow)">
+      <path d="M118 60 H178" />
+      <path d="M290 60 H350" />
+      <path d="M234 92 V122" />
+      <path d="M290 158 H350" />
+      <path d="M462 158 H522" />
+      <path d="M406 126 V96" stroke-dasharray="4 4" />
+    </g>
+
+    <g class="nodes" fill="var(--surface)" stroke="currentColor" stroke-width="1.5">
+      <rect x="6" y="36" width="112" height="56" rx="6" />
+      <rect x="178" y="36" width="112" height="56" rx="6" />
+      <rect x="350" y="36" width="112" height="56" rx="6" />
+      <rect x="178" y="130" width="112" height="56" rx="6" />
+      <rect x="350" y="130" width="112" height="56" rx="6" />
+      <rect x="522" y="130" width="112" height="56" rx="6" />
+    </g>
+
+    <g class="labels" fill="var(--ink)" font-size="14" font-weight="600" text-anchor="middle">
+      <text x="62" y="58">Clients</text>
+      <text x="234" y="58">API</text>
+      <text x="406" y="58">PostgreSQL</text>
+      <text x="234" y="152">Event bus</text>
+      <text x="406" y="152">Workers</text>
+      <text x="578" y="152">LLM</text>
+    </g>
+
+    <g class="notes" fill="var(--muted)" font-size="11" text-anchor="middle">
+      <text x="62" y="76">tenants, dealers</text>
+      <text x="234" y="76">Spring Boot / FastAPI</text>
+      <text x="406" y="76">schemas, indexes</text>
+      <text x="234" y="170">RabbitMQ / NATS</text>
+      <text x="406" y="170">reports, triage</text>
+      <text x="578" y="170">RAG, agents</text>
+    </g>
+
+  </svg>
+  <figcaption id="sketch-caption" class="meta">
+    The shape most of my work takes: an API in front of PostgreSQL, events fanning out to workers, and a model at the end of the pipeline.
+  </figcaption>
+</figure>
+
+<style>
+  .sketch {
+    margin: 2.5rem 0 0;
+    color: var(--accent);
+  }
+  .sketch svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    font-family: var(--font-sans);
+  }
+  .sketch figcaption {
+    margin-top: 0.75rem;
+    max-width: 36em;
+  }
+</style>

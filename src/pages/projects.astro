@@ -1,0 +1,128 @@
+---
+import Base from "../layouts/Base.astro";
+import { canya, site } from "../data/site";
+import { projects } from "../data/cv";
+---
+
+<Base title="Projects" description="Canya and other things I have built.">
+  <h1>Projects</h1>
+
+  <section id="canya" class="featured">
+    <h2>{canya.name}</h2>
+    <p class="lede">{canya.tagline}</p>
+    <p>
+      Canya is a desktop app built on Tauri 2 and React with an Excalidraw canvas underneath. You draw system diagrams,
+      architecture sketches and visual docs, organise them into sessions and folders, and everything is saved as a
+      versioned JSON file (<code>.canya</code>) on your own disk.
+    </p>
+    <p>
+      It is deliberately offline: there is no account system, no backend, no cloud storage, no telemetry. The one
+      exception is <em>Import from Link</em> — a single, user-initiated fetch of an <code>https://</code> project file,
+      validated with the same schema used to open a local file. Nothing else in the app touches the network.
+    </p>
+    <ul>
+      <li>Bundled icon catalog: Simple Icons, Devicon, and the official AWS, Azure and Google Cloud architecture icon sets.</li>
+      <li>Twelve built-in block libraries from the excalidraw-libraries collection.</li>
+      <li>Native app bar, session tabs, folders, autosave, and native close protection so you never lose unsaved work.</li>
+      <li>In-app updater with signed releases; installs for {canya.platforms.join(", ")}.</li>
+    </ul>
+    <ul class="tags">
+      <li>Tauri 2</li>
+      <li>Rust</li>
+      <li>React</li>
+      <li>TypeScript</li>
+      <li>Excalidraw</li>
+      <li>Bun</li>
+    </ul>
+    <p class="actions">
+      <a class="cta" href={canya.url}>Download Canya</a>
+      <a href={canya.releases}>Releases</a>
+      <a href={`${canya.repo}/issues`}>Report an issue</a>
+    </p>
+  </section>
+
+  <h2>Work</h2>
+  <article class="item">
+    <h3>VistaLine — B2B quotation & pricing platform</h3>
+    <p class="meta">Freelance · 2026 – present · Python/FastAPI, PostgreSQL, Docker, Railway, React</p>
+    <p>
+      A dealer self-service quoting system with a rule-based pricing engine over 22 product families, live FX rates,
+      RBAC across dealer and admin roles, a full quote lifecycle, and three audience-specific PDF outputs generated from
+      one shared quote model.
+    </p>
+  </article>
+  <article class="item">
+    <h3>Bear Analytica — multi-tenant phishing-simulation SaaS</h3>
+    <p class="meta">Software Engineer · 2024 – 2026 · Spring Boot, PostgreSQL, Keycloak, NATS, LangChain</p>
+    <p>
+      20+ tenants, 5M+ tracking events a month, ~50K requests a day at p95 under 200 ms. Tenant isolation, indexing
+      work that cut report queries by ~60%, RAG pipelines and agentic workflows for report generation and triage.
+    </p>
+  </article>
+
+  <h2>Academic & competition</h2>
+  {
+    projects.map((p) => (
+      <article class="item">
+        <h3>{p.name}</h3>
+        <p class="meta">
+          {p.context} · {p.period} · {p.stack.join(", ")}
+        </p>
+        <ul>
+          {p.bullets.map((b) => (
+            <li>{b}</li>
+          ))}
+        </ul>
+      </article>
+    ))
+  }
+
+  <h2>Open source and older work</h2>
+  <p>
+    École 42 projects (cub3d, push_swap, Philosophers, minitalk, ft_printf), ML coursework and a TeknoFest unmanned
+    underwater systems entry are all on <a href={site.github}>GitHub</a>.
+  </p>
+</Base>
+
+<style>
+  .featured {
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--accent);
+    border-radius: 6px;
+  }
+  .featured h2 {
+    margin-top: 0;
+  }
+  .featured .lede {
+    margin-bottom: 0.75rem;
+  }
+  .featured ul:not(.tags) {
+    padding-left: 1.1rem;
+  }
+  .featured .tags {
+    margin-top: 1rem;
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem;
+    margin: 1.5rem 0 0;
+  }
+  .item {
+    padding-top: 1.25rem;
+    margin-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+  }
+  .item h3 {
+    margin-top: 0;
+    margin-bottom: 0.2em;
+  }
+  .item ul {
+    padding-left: 1.1rem;
+    margin-bottom: 0;
+  }
+</style>
