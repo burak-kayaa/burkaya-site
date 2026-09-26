@@ -14,22 +14,10 @@ export const WORK: Page = {
   DESCRIPTION: "Where I have worked, what I studied, and what I work with.",
 }
 
-// Blog Page
-export const BLOG: Page = {
-  TITLE: "Blog",
-  DESCRIPTION: "Notes on backend systems, PostgreSQL, event-driven architecture, and building Canya.",
-}
-
 // Projects Page
 export const PROJECTS: Page = {
   TITLE: "Projects",
   DESCRIPTION: "Canya, and the things I have built at work, at university, and at 42.",
-}
-
-// Search Page
-export const SEARCH: Page = {
-  TITLE: "Search",
-  DESCRIPTION: "Search all posts and projects by keyword.",
 }
 
 // Links
@@ -45,10 +33,6 @@ export const LINKS: Links = [
   {
     TEXT: "Projects",
     HREF: "/projects",
-  },
-  {
-    TEXT: "Blog",
-    HREF: "/blog",
   },
 ]
 
