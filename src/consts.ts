@@ -4,7 +4,7 @@ import type { Site, Page, Links, Socials } from "@types"
 export const SITE: Site = {
   TITLE: "Burak Kaya",
   DESCRIPTION:
-    "Backend engineer building secure, scalable SaaS systems in Java/Spring Boot and Python/FastAPI. Maker of Canya, a local-first desktop app for technical diagrams.",
+    "Backend engineer building secure, scalable SaaS systems in Java/Spring Boot and Python/FastAPI. Maker of Canya, a local-first desktop app for technical diagrams, and Tidemark, which turns a workday into worklogs.",
   AUTHOR: "Burak Kaya",
 }
 
@@ -17,7 +17,7 @@ export const WORK: Page = {
 // Projects Page
 export const PROJECTS: Page = {
   TITLE: "Projects",
-  DESCRIPTION: "Canya, and the things I have built at work, at university, and at 42.",
+  DESCRIPTION: "Canya, Tidemark, and the things I have built at work, at university, and at 42.",
 }
 
 // Links
