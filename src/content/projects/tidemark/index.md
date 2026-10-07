@@ -1,6 +1,6 @@
 ---
 title: "Tidemark"
-summary: "A local-first app that turns the traces of a workday into worklogs, for Jira or the spreadsheet you report in. Version 0.1.0, for Windows and macOS."
+summary: "A local-first app that turns the traces of a workday into worklogs, for Jira or the spreadsheet you report in. For Windows, macOS and Linux."
 date: "Sep 26 2026"
 draft: false
 tags:
@@ -14,7 +14,7 @@ demoUrl: https://tidemark.burkaya.com
 repoUrl: https://github.com/burak-kayaa/tidemark-site
 ---
 
-Tidemark runs on your computer and follows what you work on: windows, browser tabs, terminal commands, git commits and calendar meetings. At the end of the day it hands you the day's worklogs to check: which ticket or job, from when to when, what you did. Fix what is wrong, then publish to Jira or write them into the spreadsheet your team already keeps. Version 0.1.0 is out for Windows and Apple Silicon Macs, and runs on Linux with uv.
+Tidemark runs on your computer and follows what you work on: windows, browser tabs, terminal commands, git commits and calendar meetings. At the end of the day it hands you the day's worklogs to check: which ticket or job, from when to when, what you did. Fix what is wrong, then publish to Jira or write them into the spreadsheet your team already keeps. It is out for Windows and Apple Silicon Macs, and runs on Linux with uv.
 
 ![Reviewing a day's suggestions](./review-light.webp)
 
