@@ -1,6 +1,6 @@
 ---
 title: "Tidemark"
-summary: "A local-first app that turns the traces of a workday into worklogs, for Jira or the spreadsheet you report in. In development."
+summary: "A local-first app that turns the traces of a workday into worklogs, for Jira or the spreadsheet you report in. Version 0.1.0, for Windows and macOS."
 date: "Sep 26 2026"
 draft: false
 tags:
@@ -14,7 +14,7 @@ demoUrl: https://tidemark.burkaya.com
 repoUrl: https://github.com/burak-kayaa/tidemark-site
 ---
 
-Tidemark runs on your computer and follows what you work on: windows, browser tabs, terminal commands, git commits and calendar meetings. At the end of the day it hands you the day's worklogs to check: which ticket or job, from when to when, what you did. Fix what is wrong, then publish to Jira or write them into the spreadsheet your team already keeps. It is in development; there is nothing to download yet.
+Tidemark runs on your computer and follows what you work on: windows, browser tabs, terminal commands, git commits and calendar meetings. At the end of the day it hands you the day's worklogs to check: which ticket or job, from when to when, what you did. Fix what is wrong, then publish to Jira or write them into the spreadsheet your team already keeps. Version 0.1.0 is out for Windows and Apple Silicon Macs, and runs on Linux with uv.
 
 ![Reviewing a day's suggestions](./review-light.webp)
 
@@ -33,6 +33,6 @@ Tidemark runs on your computer and follows what you work on: windows, browser ta
 
 A Python 3.12 service built with ports and adapters: a pure domain layer (sessionizing, matching, scoring) with no I/O, FastAPI with server-rendered Jinja2 and HTMX for the interface, SQLite for storage, and ActivityWatch for collecting window and browser activity. Matching combines rules, kNN over earlier decisions and embedding similarity with a local multilingual model on the CPU; a replayable evaluation harness scores every change. A Qt tray app wraps the same pages in a window.
 
-Privacy is a rule, not a setting: everything runs on `127.0.0.1`, recorded activity stays in one file on your disk, old activity is deleted after 90 days, and anything sent to an LLM goes through a single redaction gate, only after you have seen exactly what would be sent.
+Privacy is a rule, not a setting: everything runs on `127.0.0.1`, recorded activity stays in one file on your disk, old activity is deleted after 90 days, and Claude sees your work only if you connect it, through MCP.
 
-[Visit the site](https://tidemark.burkaya.com) · [Follow on GitHub](https://github.com/burak-kayaa/tidemark-site)
+[Download](https://tidemark.burkaya.com/#download) · [Visit the site](https://tidemark.burkaya.com) · [Releases](https://github.com/burak-kayaa/tidemark-site/releases)
