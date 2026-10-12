@@ -14,7 +14,7 @@ demoUrl: https://tidemark.burkaya.com
 repoUrl: https://github.com/burak-kayaa/tidemark-site
 ---
 
-Tidemark runs on your computer and follows what you work on: windows, browser tabs, terminal commands, git commits and calendar meetings. At the end of the day it hands you the day's worklogs to check: which ticket or job, from when to when, what you did. Fix what is wrong, then publish to Jira or write them into the spreadsheet your team already keeps. It is out for Windows and Apple Silicon Macs, and runs on Linux with uv.
+Tidemark runs on your computer and follows what you work on: windows, browser tabs, terminal commands, git commits and calendar meetings. At the end of the day it hands you the day's worklogs to check: which ticket or job, from when to when, what you did. Fix what is wrong, then publish to Jira or write them into the spreadsheet your team already keeps. It is out for Windows, Apple Silicon Macs and Linux.
 
 ![Reviewing a day's suggestions](./review-light.webp)
 
