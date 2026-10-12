@@ -27,7 +27,7 @@ Tidemark runs on your computer and follows what you work on: windows, browser ta
 - **Keeps the day honest.** End-of-day reminders, days that fall short of your working hours pointed out, and worklogs split where you took a long break.
 - **Answers questions.** An MCP server lets Claude tell you what you worked on or write your standup from your reviewed work.
 
-![A week as tide lines in the summary](./summary-dark.webp)
+![A week's logged work in the summary](./summary-dark.webp)
 
 ## Under the hood
 
